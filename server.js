@@ -56,7 +56,7 @@ var getImage = edge.func(function () {/*
  graphics.DrawString(messageTwo, fontTwo, Brushes.White, left, top);
 
  MemoryStream imageStream = new MemoryStream();
- image.Save(imageStream, ImageFormat.Bmp);
+ image.Save(imageStream, image.RawFormat);
  byte[] contentBuffer = new byte[imageStream.Length];
  imageStream.Seek(0, SeekOrigin.Begin);
  imageStream.Read(contentBuffer, 0, contentBuffer.Length);
@@ -579,6 +579,7 @@ function loadImage(reqUrl, req, res){
         if (error) error500(req, res);
 
         if (result){
+
             res.writeHead(200, {'Content-Type': 'image/jpeg'});
             res.end(result.imageBuffer);
         }
