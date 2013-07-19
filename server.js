@@ -3,6 +3,8 @@ var http = require('http')
     , edge = require('edge')
     , url = require('url');
 
+var port = process.env.PORT || 8124;
+
 var getImage = edge.func(function () {/*
  #r "System.Drawing.dll"
 
@@ -601,7 +603,7 @@ http.createServer(function(req, res) {
         error404(req, res);
     }
 
-}).listen(8124);
+}).listen(port);
 
 
 
