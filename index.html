@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+    <style type="text/css">
+
+        body  {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #container {
+            width: 500px; /*SET your width here*/
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .left{
+            float: left;
+            text-align: left;
+        }
+        .center{
+            text-align: center;
+        }
+        .right{
+            float: right;
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <br/>
+        <b>Bastard Operator from Hell</b><br/><br/>
+        <img id='theImage' src='' />
+        <br/>
+        <br/>
+        <a class="left" href='#' onclick='previous(event)'>Previous</a>
+        <a class="center" href='#' onclick='random(event)'>Random</a>
+        <a class="right" href='#' onclick='next(event)'>Next</a>
+
+        <div style='clear: both;'></div>
+
+
+    </div>
+
+    <script type='text/javascript'>
+
+        function pageLoad(){
+
+            var index = getIndex();
+            if (!(index)){
+
+                index = Math.floor((Math.random()*464)+1);
+            }
+            loadImage(index);
+        }
+
+        function random(e){
+            var randomIndex = Math.floor((Math.random()*464)+1);
+            loadImage(randomIndex);
+
+            e.preventDefault();
+        }
+
+        function next(e){
+
+            var index = getIndex();
+
+            if(index){
+                index++;
+                if (index == 465) index = 0;
+                loadImage(index);
+            }
+            else{
+                random(e);
+            }
+
+            e.preventDefault();
+        }
+
+        function previous(e){
+            var index = getIndex();
+
+            if(index){
+                index--;
+                if (index == -1) index = 464;
+                loadImage(index);
+            }
+            else{
+                random(e);
+            }
+
+            e.preventDefault();
+        }
+
+        function getIndex(){
+            var hash = window.location.hash;
+
+            if (hash &&
+                hash.indexOf('#index=') >= 0 &&
+                !isNaN(hash.replace('#index=', '')) ){
+
+                var index = hash.replace('#index=', '');
+
+                return index;
+             }
+            console.log(hash);
+            return null;
+
+        }
+
+        function loadImage(index){
+            document.location.hash = 'index=' + index;
+            document.getElementById("theImage").src = '/image?index=' + index;
+        }
+
+        pageLoad();
+    </script>
+
+</body>
+</html>
